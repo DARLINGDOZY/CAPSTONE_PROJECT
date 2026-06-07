@@ -131,10 +131,7 @@ uvicorn app.main:app --reload
 ```
 
 The API will be available at:
-- **API base:** `http://localhost:8000/api/v1`
-- **Interactive docs:** `http://localhost:8000/docs`
-- **OpenAPI schema:** `http://localhost:8000/openapi.json`
-- **Health check:** `http://localhost:8000/health`
+- **API base:** https://course-enrollment-api-kpjr.onrender.com
 
 ---
 
