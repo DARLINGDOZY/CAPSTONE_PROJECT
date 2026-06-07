@@ -61,7 +61,7 @@ enrollment_platform/
 ├── alembic.ini
 ├── pytest.ini
 ├── requirements.txt
-└── .env.example
+└── .env
 ```
 
 ---
