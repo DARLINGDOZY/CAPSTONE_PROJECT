@@ -141,7 +141,7 @@ Tests use an in-memory SQLite database — **no PostgreSQL required**.
 
 ```bash
 # Run all tests
-pytest
+.venv\Scripts\python.exe -m pytest
 
 # With coverage report
 pytest --cov=app --cov-report=term-missing
