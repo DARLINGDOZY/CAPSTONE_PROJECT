@@ -17,29 +17,22 @@ depends_on: Union[str, Sequence[str], None] = None
 
 
 def upgrade() -> None:
-    # Create enum type for user role
-    user_role = sa.Enum("student", "admin", name="user_role")
+    user_role = sa.Enum("student", "admin", name="user_role", create_type=False)
     user_role.create(op.get_bind(), checkfirst=True)
 
-    # Create users table
     op.create_table(
         "users",
         sa.Column("id", sa.Integer(), nullable=False),
         sa.Column("name", sa.String(length=100), nullable=False),
         sa.Column("email", sa.String(length=255), nullable=False),
         sa.Column("hashed_password", sa.String(length=255), nullable=False),
-        sa.Column(
-            "role",
-            sa.Enum("student", "admin", name="user_role"),
-            nullable=False,
-        ),
+        sa.Column("role", sa.Enum("student", "admin", name="user_role", create_type=False), nullable=False),
         sa.Column("is_active", sa.Boolean(), nullable=False, server_default=sa.true()),
         sa.PrimaryKeyConstraint("id"),
     )
     op.create_index(op.f("ix_users_email"), "users", ["email"], unique=True)
     op.create_index(op.f("ix_users_id"), "users", ["id"], unique=False)
 
-    # Create courses table
     op.create_table(
         "courses",
         sa.Column("id", sa.Integer(), nullable=False),
@@ -52,17 +45,12 @@ def upgrade() -> None:
     op.create_index(op.f("ix_courses_code"), "courses", ["code"], unique=True)
     op.create_index(op.f("ix_courses_id"), "courses", ["id"], unique=False)
 
-    # Create enrollments table
     op.create_table(
         "enrollments",
         sa.Column("id", sa.Integer(), nullable=False),
         sa.Column("user_id", sa.Integer(), nullable=False),
         sa.Column("course_id", sa.Integer(), nullable=False),
-        sa.Column(
-            "created_at",
-            sa.DateTime(timezone=True),
-            nullable=False,
-        ),
+        sa.Column("created_at", sa.DateTime(timezone=True), nullable=False),
         sa.ForeignKeyConstraint(["course_id"], ["courses.id"]),
         sa.ForeignKeyConstraint(["user_id"], ["users.id"]),
         sa.PrimaryKeyConstraint("id"),
