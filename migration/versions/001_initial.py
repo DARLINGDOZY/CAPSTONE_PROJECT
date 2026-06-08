@@ -17,8 +17,8 @@ depends_on: Union[str, Sequence[str], None] = None
 
 
 def upgrade() -> None:
-    user_role = sa.Enum("student", "admin", name="user_role", create_type=False)
-    user_role.create(op.get_bind(), checkfirst=True)
+    op.execute("DROP TYPE IF EXISTS user_role CASCADE")
+    op.execute("CREATE TYPE user_role AS ENUM ('student', 'admin')")
 
     op.create_table(
         "users",
@@ -68,4 +68,4 @@ def downgrade() -> None:
     op.drop_index(op.f("ix_users_id"), table_name="users")
     op.drop_index(op.f("ix_users_email"), table_name="users")
     op.drop_table("users")
-    sa.Enum(name="user_role").drop(op.get_bind(), checkfirst=True)
+    op.execute("DROP TYPE IF EXISTS user_role CASCADE")
