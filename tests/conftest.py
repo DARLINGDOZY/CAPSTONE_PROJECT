@@ -55,7 +55,7 @@ def client(db):
 
 def register_and_login(client, email="student@test.com", password="password123", role="student", name="Test User"):
     client.post("/api/v1/auth/register", json={"name": name, "email": email, "password": password, "role": role})
-    resp = client.post("/api/v1/auth/login", json={"email": email, "password": password})
+    resp = client.post("/api/v1/auth/login", data={"username": email, "password": password})
     return resp.json()["access_token"]
 
 

@@ -75,7 +75,7 @@ class TestLogin:
         )
         resp = client.post(
             "/api/v1/auth/login",
-            json={"email": "alice@test.com", "password": "secret123"},
+            data={"username": "alice@test.com", "password": "secret123"},
         )
         assert resp.status_code == 200
         data = resp.json()
@@ -89,14 +89,14 @@ class TestLogin:
         )
         resp = client.post(
             "/api/v1/auth/login",
-            json={"email": "alice@test.com", "password": "wrongpassword"},
+            data={"username": "alice@test.com", "password": "wrongpassword"},
         )
         assert resp.status_code == 401
 
     def test_login_nonexistent_user(self, client):
         resp = client.post(
             "/api/v1/auth/login",
-            json={"email": "nobody@test.com", "password": "password123"},
+            data={"username": "nobody@test.com", "password": "password123"},
         )
         assert resp.status_code == 401
 
@@ -112,7 +112,7 @@ class TestLogin:
 
         resp = client.post(
             "/api/v1/auth/login",
-            json={"email": "alice@test.com", "password": "secret123"},
+            data={"username": "alice@test.com", "password": "secret123"},
         )
         assert resp.status_code == 403
 
