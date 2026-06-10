@@ -25,7 +25,8 @@ enrollment_platform/
 │   │   ├── deps.py               # Auth/RBAC dependencies
 |   |   |__router.py              # Aggregates all routers
 │   │   └── endpoints/
-│   │       ├── auth.py           # /api/v1/auth/*
+│   │       ├── auth.py         # /api/v1/auth/*
+|   |       |__ users.py        #/api/v1/users/*
 │   │       ├── courses.py        # /api/v1/courses/*
 │   │       └── enrollments.py    # /api/v1/enrollments/*
 │   ├── core/
